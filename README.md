@@ -63,7 +63,7 @@ You can name it mongo and choose MongoDb.
 
 ### Security : From AccessToken to JWT
 
-To pass to JWT : Go to server/boot/athentication.js
+To pass to JWT : Go to server/boot/authentication.js
 ```Javascript
 var mcflyLoopback = require('mcfly-loopback');
 var config = require('../config');
