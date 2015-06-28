@@ -122,7 +122,23 @@ Create **Car** with loopback
 slc loopback:model Car
 ```
 This will generate a file common/models/Car.json  
-In order to handle 
+In order to handle **access** add 
+
+```JSON
+"acls": [{
+       "principalType": "ROLE",
+       "principalId": "$everyone",
+       "permission": "DENY"
+   }, {
+       "accessType": "READ",
+       "principalType": "ROLE",
+       "principalId": "$authenticated",
+       "permission": "ALLOW"
+   }],
+```
+
+More details about ACLs here  
+[Here Loopback](http://docs.strongloop.com/display/public/LB/Model+definition+JSON+file;jsessionid=96C4FBE779BE4B9E9E79EE47F3C19411#ModeldefinitionJSONfile-ACLs)
 
 
 Hence, the common/models/Car.json file should look like to this :
