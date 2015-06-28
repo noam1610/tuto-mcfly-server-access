@@ -65,6 +65,12 @@ You can name it mongo and choose MongoDb.
 This is the way we store data.  
 (You can see below in config.js that we choosed a local storage. However, you can use mongolab).
 
+If you used mongo, don't forget to install it :
+```
+npm install loopback-connector-mongodb
+```
+
+
 ### Security : From AccessToken to JWT
 
 To pass to JWT : Go to server/boot/authentication.js
@@ -178,7 +184,6 @@ You may find some errors if running the server.
 To prevent it run :  
 
 ```
-npm install loopback-connector-mongodb
 npm install mcfly-io/mcfly-loopback
 ```
 
