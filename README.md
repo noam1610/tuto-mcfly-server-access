@@ -45,7 +45,7 @@ In order to add BaseUser to our server go to model-config.json and add :
         "dataSource": "db",
         "public": true
     }
-```
+``
 
 Don't forget to hide user 
 ```JSON
@@ -92,8 +92,15 @@ module.exports = {
 }
 ```
 
+### Adding an secured data
+Create **Car** with loopback 
+```
+slc loopback:model Car
+```
 
-Créer Car via loopback model et dans son json mettre {
+In the common/models/Car.js file change :
+```JSON
+{
    "name": "Car",
    "base": "PersistedModel",
    "idInjection": true,
@@ -119,12 +126,18 @@ Créer Car via loopback model et dans son json mettre {
    }],
    "methods": []
 }
+```
 
 
+### Some necessary tools
+
+You may find some errors if running the server.  
+To prevent it run :  
+
+```
 npm install loopback-connector-mongodb
-
 npm install mcfly-io/mcfly-loopback
-
+```
 
 
 
