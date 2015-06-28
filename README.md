@@ -45,7 +45,7 @@ In order to add BaseUser to our server go to model-config.json and add :
         "dataSource": "db",
         "public": true
     }
-``
+```
 
 Don't forget to hide user 
 ```JSON
