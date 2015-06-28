@@ -92,6 +92,7 @@ module.exports = {
 }
 ```
 
+
 Créer Car via loopback model et dans son json mettre {
    "name": "Car",
    "base": "PersistedModel",
