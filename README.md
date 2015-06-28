@@ -45,7 +45,7 @@ In order to add BaseUser to our server go to model-config.json and add :
         "dataSource": "db",
         "public": true
     }
-```
+``
 
 Don't forget to hide user 
 ```JSON
@@ -58,6 +58,8 @@ We need to attach our objects to a datasource :
 ```
 slc loopback:datasource
 ```
+
+You can name it mongo and choose MongoDb.
 
 ### Security : From AccessToken to JWT
 
