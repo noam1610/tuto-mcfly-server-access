@@ -29,7 +29,7 @@ slc run
 
 ### Creating some objects
 
-Now we will create the BaseUser (unsecured) object in the server.  
+Now we will create the BaseUser (secured) object in the server.  
 Download **https://github.com/cosmojs/universal** and copy the common folder into your folder.
 
 
@@ -45,7 +45,9 @@ In order to add BaseUser to our server go to model-config.json and add :
         "dataSource": "db",
         "public": true
     }
-``
+```
+
+
 
 Don't forget to hide user 
 ```JSON
@@ -73,7 +75,7 @@ module.exports = function enableAuthentication(server) {
  server.enableAuth();
  mcflyLoopback.oauth(server, config);
 };
-```
+```s
 
 
 If we want the app to handle google, facebook etc.... let's create a new file server/config.js with
