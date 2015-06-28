@@ -39,8 +39,7 @@ npm install --save mcfly-io/mcfly-loopback
 ```
 
 In order to add BaseUser to our server go to model-config.json and add :
-Ajouter BaseUser à loopback
-et à model-config
+
 ```JSON
 "BaseUser": {
         "dataSource": "db",
@@ -60,7 +59,7 @@ We need to attach our objects to a datasource :
 slc loopback:datasource
 ```
 
-### Security :From AccessToken to JWT
+### Security : From AccessToken to JWT
 
 To pass to JWT : Go to server/boot/athentication.js
 ```Javascript
@@ -76,7 +75,7 @@ module.exports = function enableAuthentication(server) {
 
 
 If we want the app to handle google, facebook etc.... let's create a new file config.js with
-```
+```JSON
 module.exports = {
  mongoURI: process.env.MONGO_URI || 'localhost',
  userModel: process.env.USER_MODEL || 'BaseUser',
