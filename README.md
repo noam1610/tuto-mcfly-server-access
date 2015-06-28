@@ -76,7 +76,7 @@ module.exports = function enableAuthentication(server) {
 ```
 
 
-If we want the app to handle google, facebook etc.... let's create a new file config.js with
+If we want the app to handle google, facebook etc.... let's create a new file server/config.js with
 ```JSON
 module.exports = {
  mongoURI: process.env.MONGO_URI || 'localhost',
