@@ -62,6 +62,8 @@ slc loopback:datasource
 ```
 
 You can name it mongo and choose MongoDb.
+This is the way we store data.  
+(You can see below in config.js that we choosed a local storage. However, you can use mongolab).
 
 ### Security : From AccessToken to JWT
 
@@ -75,11 +77,10 @@ module.exports = function enableAuthentication(server) {
  server.enableAuth();
  mcflyLoopback.oauth(server, config);
 };
-```s
+```
 
-
-If we want the app to handle google, facebook etc.... let's create a new file server/config.js with
-```JSON
+Let's create a new file server/config.js  
+```javascript
 module.exports = {
  mongoURI: process.env.MONGO_URI || 'localhost',
  userModel: process.env.USER_MODEL || 'BaseUser',
@@ -96,13 +97,35 @@ module.exports = {
 }
 ```
 
-### Adding an secured data
+
+If we want the app to handle google, facebook etc.... Let's add :
+```javascript
+module.exports = {
+ mongoURI: process.env.MONGO_URI || 'localhost',
+ userModel: process.env.USER_MODEL || 'BaseUser',
+ authHeader: process.env.AUTH_HEADER || 'Satellizer',
+ tokenSecret: process.env.TOKEN_SECRET || 'A hard to guess string',
+ oauth: {
+   facebook: {
+     secret: process.env.FACEBOOK_SECRET || 'yourcode'
+   },
+   google: {
+     secret: process.env.GOOGLE_SECRET || 'yourcode'
+   }
+}
+}
+```
+
+### Adding a secured data
 Create **Car** with loopback 
 ```
 slc loopback:model Car
 ```
+This will generate a file common/models/Car.json  
+In order to handle 
 
-In the common/models/Car.js file change :
+
+Hence, the common/models/Car.json file should look like to this :
 ```JSON
 {
    "name": "Car",
