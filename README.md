@@ -17,22 +17,54 @@ mkdir tuto-mcfly-server-access
 ```
 
 
-We first need to create a server :
-
-
-Create server : slc loopback // slc run
-
-copier commun depuis universal
-
-npm install --save mcfly-io/nomdutrucgithub
-
-slc loopback:datasource
-
-
-To pass to JWT : Go to server/boot/athenti.. 
+We then need to create a server :
+```
+slc loopback 
 ```
 
-    var mcflyLoopback = require('mcfly-loopback');
+You can check it works :
+```
+slc run
+```
+
+### Creating some objects
+
+Now we will create the BaseUser (unsecured) object in the server.  
+Download **https://github.com/cosmojs/universal** and copy the common folder into your folder.
+
+
+Then we install mcfly-loopback :
+```
+npm install --save mcfly-io/mcfly-loopback
+```
+
+In order to add BaseUser to our server go to model-config.json and add :
+Ajouter BaseUser à loopback
+et à model-config
+```JSON
+"BaseUser": {
+        "dataSource": "db",
+        "public": true
+    }
+``
+
+Don't forget to hide user 
+```JSON
+"User": {
+        "dataSource": "db",
+        "public": false
+    },
+```
+We need to attach our objects to a datasource :
+```
+slc loopback:datasource
+```
+
+### Security :From AccessToken to JWT
+
+To pass to JWT : Go to server/boot/athentication.js
+```Javascript
+var mcflyLoopback = require('mcfly-loopback');
 var config = require('../config');
 
 module.exports = function enableAuthentication(server) {
@@ -43,9 +75,8 @@ module.exports = function enableAuthentication(server) {
 ```
 
 
-Dans config , il y a les codes des sites insta...fb...    
-
-create new file config.js with
+If we want the app to handle google, facebook etc.... let's create a new file config.js with
+```
 module.exports = {
  mongoURI: process.env.MONGO_URI || 'localhost',
  userModel: process.env.USER_MODEL || 'BaseUser',
@@ -53,30 +84,14 @@ module.exports = {
  tokenSecret: process.env.TOKEN_SECRET || 'A hard to guess string',
  oauth: {
    facebook: {
-     secret: process.env.FACEBOOK_SECRET || '7c47eea04e2d7ac867e07fb66a1c9162'
+     secret: process.env.FACEBOOK_SECRET || 'yourcode'
    },
    google: {
-     secret: process.env.GOOGLE_SECRET || '6dNoAwqznF-7eV6WTR120y10'
+     secret: process.env.GOOGLE_SECRET || 'yourcode'
    }
 }
 }
-
-
-Ajouter BaseUser à loopback
-et à model-config
-
-"BaseUser": {
-        "dataSource": "db",
-        "public": true
-
-    }
-
-
-On cache user dans model config
-
-"public": false
-
-postman.com
+```
 
 Créer Car via loopback model et dans son json mettre {
    "name": "Car",
