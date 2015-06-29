@@ -305,7 +305,7 @@ app.config(['$stateProvider', '$urlRouterProvider',
     ]);
 ```
 Add the login redirection :
-```
+```Javascript
 app.config(['$stateProvider', '$urlRouterProvider',
         function($stateProvider, $urlRouterProvider) {
             $urlRouterProvider.otherwise('/');
@@ -319,7 +319,9 @@ app.config(['$stateProvider', '$urlRouterProvider',
             });
         }
     ]);
-```Javascript
+```
+
+
 
 On crée un module avec le generator
 yo mcfly:module common
