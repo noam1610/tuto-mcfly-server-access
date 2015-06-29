@@ -187,6 +187,19 @@ To prevent it run :
 npm install mcfly-io/mcfly-loopback
 ```
 
+### Compatibility with client
+
+In server/server.js we need to add at the begining:
+```Javascript
+var bodyParser = require('body-parser');
+
+var app = module.exports = loopback();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+   extended: true
+}));
+```
+
 
 ## Client side
 
@@ -303,7 +316,8 @@ app.config(['$stateProvider', '$urlRouterProvider',
             });
         }
     ]);
-```
+```  
+
 Add the login redirection :
 ```Javascript
 app.config(['$stateProvider', '$urlRouterProvider',
@@ -320,6 +334,13 @@ app.config(['$stateProvider', '$urlRouterProvider',
         }
     ]);
 ```
+
+Now let's create a controller :  
+```
+yo mcfly:controller common
+```
+Here we call it SecuredCtrl.  
+
 
 
 
@@ -352,7 +373,7 @@ AJouter bodyparser poour loopback c'est un middlewear
 
 
 
-
+bodyParser
 
 
 
