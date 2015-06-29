@@ -203,6 +203,21 @@ yo mcfly tuto-mcfly-client-access
 You will have to set an array of choices :
 ![capture d ecran 2015-06-29 a 11 15 24](https://cloud.githubusercontent.com/assets/8570784/8403789/587f31e2-1e50-11e5-9ab4-de5d66989c1c.png)
 
+If you have this error:  
+![capture d ecran 2015-06-29 a 11 33 28](https://cloud.githubusercontent.com/assets/8570784/8404072/b538e782-1e52-11e5-9c85-f01a8c30f927.png)
+
+Try this workaround:
+
+In the project where the install failed you'll find a file named .gulps-package.json  
+This file is generated before the generator tries to do an npm install in case it fails
+
+So you can do the following:
+
+  * copy the content of the devDependencies section of this file in the devDependencies of package.json  
+  * modify the version of gulp-sass to be 2.0.2  
+  * save the resulting package.json  
+  * run npm install this should put you in the same state as if the generated succeeded  
+  * let me know how it went  
 
 
 
