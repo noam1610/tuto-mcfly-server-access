@@ -272,9 +272,54 @@ Add a basic loginUI such as : (if you use ionic)
             <input type="text" placeholder="password">
         </label>
     </div>
+    <div class="row">
+        <div class="col"> </div>
+        <div class="col"> </div>
+        <div class="col">
+            <button class="button button-balanced">
+              SIGN IN
+            </button>
+        </div>
+        <div class="col">
+            <button class="button button-assertive">
+              Google
+            </button>
+        </div>
+        <div class="col"> </div>
+        <div class="col"> </div>
+    </div>
 </div>
-``
+```
 
+Then we need to add it as a route.  
+In common/index.js we have :
+```Javascript
+app.config(['$stateProvider', '$urlRouterProvider',
+        function($stateProvider, $urlRouterProvider) {
+            $urlRouterProvider.otherwise('/');
+            $stateProvider.state('home', {
+                url: '/',
+                template: require('./views/home.html')
+            });
+        }
+    ]);
+```
+Add the login redirection :
+```
+app.config(['$stateProvider', '$urlRouterProvider',
+        function($stateProvider, $urlRouterProvider) {
+            $urlRouterProvider.otherwise('/');
+            $stateProvider.state('home', {
+                url: '/',
+                template: require('./views/home.html')
+            });
+            $stateProvider.state('login', {
+                url: '/login',
+                template: require('./views/login.html')
+            });
+        }
+    ]);
+```
 
 On crée un module avec le generator
 yo mcfly:module common
