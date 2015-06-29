@@ -188,34 +188,24 @@ npm install mcfly-io/mcfly-loopback
 ```
 
 
+## Client side
+
+We first need to create a folder :
+```Bash
+mkdir tuto-mcfly-client-access
+```
+
+Then we use the generator:
+```
+yo mcfly tuto-mcfly-client-access
+```
+
+You will have to set an array of choices :
+![capture d ecran 2015-06-29 a 11 15 24](https://cloud.githubusercontent.com/assets/8570784/8403789/587f31e2-1e50-11e5-9ab4-de5d66989c1c.png)
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-On crée le folder client ouath-app
-yo mcfly ouath-app
 On crée un module avec le generator
 yo mcfly:module common
 yo mcfly:controller common login
