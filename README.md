@@ -319,7 +319,7 @@ app.config(['$stateProvider', '$urlRouterProvider',
             });
         }
     ]);
-```
+```Javascript
 
 On crée un module avec le generator
 yo mcfly:module common
