@@ -190,6 +190,11 @@ npm install mcfly-io/mcfly-loopback
 
 ## Client side
 
+In this tutorial we are going to create a client in which some pages will be secured (you must login to access them)
+and others will be unsecured.  
+
+### First steps
+
 We first need to create a folder :
 ```Bash
 mkdir tuto-mcfly-client-access
@@ -219,6 +224,56 @@ So you can do the following:
   * run npm install this should put you in the same state as if the generated succeeded  
   * let me know how it went  
 
+
+To check that everything works :
+```
+gulp browsersync
+```
+This command should open the a web page with your client code ( now empty )
+
+
+If you find this error :
+
+![capture d ecran 2015-06-29 a 11 43 07](https://cloud.githubusercontent.com/assets/8570784/8404241/165881a2-1e54-11e5-8ceb-08b4d0d1d9ba.png)
+
+Then do :
+```
+bower install
+```
+
+It should fix it.  
+
+
+### Building our app
+
+First we create a module:
+```
+yo mcfly:module common
+```
+
+This will create you two files. In the terminal you will see :
+```
+create oauth-loopback/scripts/common/index.js
+create oauth-loopback/scripts/common/views/home.html
+```
+
+Now let's create a login.html page in scripts/common/views
+Add a basic loginUI such as : (if you use ionic)
+```html
+<div style="padding: 4em;">
+    <div class="bar bar-header bar-positive">
+        <h1 class="title">Login Page</h1>
+    </div>
+    <div class="list list-inset" style="padding: 4em;">
+        <label style="padding-horizontal: 10em;" class="item item-input">
+            <input type="text" placeholder="email">
+        </label>
+        <label style="padding-horizontal: 10em;" class="item item-input">
+            <input type="text" placeholder="password">
+        </label>
+    </div>
+</div>
+``
 
 
 On crée un module avec le generator
