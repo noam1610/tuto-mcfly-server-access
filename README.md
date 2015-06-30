@@ -393,18 +393,143 @@ var deps = ['LoopBackAuth', '$auth', '$location', '$window'];
         };
 ```
 
+In the log out button add :
+```html
+<div class="col">
+    <button ng-click="vm.logout()" class="button button-assertive">
+              Logout
+    </button>
+</div>
+```
+
+Now let's define it in the controller: loginCtrl.js
+```Javascript
+
+ vm.logout = function() {
+            LoopBackAuth.clearUser();
+            LoopBackAuth.save();
+            $location.path('/');
+            $window.alert({
+                content: 'You have been logged out',
+                animoation: 'fadeZoomFadeDown',
+                type: 'material',
+                duration: 3
+            });
 
 
+```
 
 
+####Using Satellizer
+
+```
+bower install --save satellizer
+```
+
+Add it as a dependency in package.json in browser :
+```JSON
+"browser": {
+        "unitHelper": "./test/unit/unitHelper.js",
+        "lbServices": "./oauth-loopback/scripts/lbServices.js",
+        "ionic": "./bower_components/ionic/release/js/ionic.js",
+        "angular-ionic": "./bower_components/ionic/release/js/ionic-angular.js",
+        "satellizer": "./bower_components/satellizer/satellizer.js"
+    },
+```
+
+In views/index.js add
+```
+app.config(['satellizer.config', '$authProvider', function(config, $authProvider) {
+
+        config.authHeader = 'Authorization';
+        config.httpInterceptor = false;
+
+        $authProvider.facebook({
+            clientId: '1006560576035222'
+        });
+
+        $authProvider.google({
+            url: 'http://localhost:5000/auth/google',
+            clientId: '1016231927503-ppk8to3202giceccao5cqf9rqobgncoe.apps.googleusercontent.com'
+        });
+    }]);
+
+```
+
+#### Using lbServices
+
+Let's add the lbServices File :
+
+From the server folder :
+```
+lb-ng server/server.js lbServices.js
+```
+
+Then copy it in the client folder into client/scripts
+For me it was this
+```
+cp /Users/Noam/mcfly-server-app/mcfly-server/mcfly-server-app/lbServices.js /Users/Noam/mcfly-server-app/mcfly-app/client/scripts
+```
+
+#### Adding a secured page 
+
+Let's create views/secured.html.
 
 
+Because we want to show our Car object, this will look like to :  
 
+```html
+<div style="padding: 4em;">
+    <div>Secured</div>
+    <button ng-click="vm.getCars()">See cars</button>
+    <div ng-repeat= "car in vm.cars">What a crazy car -->{{car.name}}<--</div>
+</div>
+```
 
+Now let's create the controller :
+```
+yo mcfly:controller common
+```
+And name it securedCtrl.js
 
+In this controller, let's define cars by default and a function to crete two cars and display it:
+```Javascript
+vm.cars = [{
+            'name': 'ferrari'
+        }, {
+            'name': 'mazda'
+        }];
 
+vm.getCars = function() {
+            Car.create({
+                    'name': 'play'
+                }).$promise
+                .then(function(cars) {});
+            Car.create({
+                    'name': 'gogol'
+                }).$promise
+                .then(function(cars) {});
 
+            Car.find({}).$promise
+                .then(function(cars) {
+                    console.log(cars);
+                    vm.cars = cars;
+                });
+        };
+```
 
+Now in index.js we need to add our route for the secured page :
+```Javascript
+$stateProvider.state('secured', {
+                url: '/secured',
+                template: require('./views/secured.html'),
+                controller: fullname + '.securedCtrl',
+                controllerAs: 'vm',
+                resolve: {
+                    authenticated: authenticated
+                }
+            });
+```
 
 
 
