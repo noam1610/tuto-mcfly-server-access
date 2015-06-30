@@ -2,13 +2,18 @@
 
 ## The project 
 
-In this tutorial we are going to create a server in which some objects will be secured (you must login to access them)
- and others will be unsecured.
+In this tutorial we are going to work around security !
+  First we will create a server in which some objects will be secured (you must login to access them)
+and others will be unsecured.
+  Then we will create a client in which some pages will be secured (you must login to access them)
+and others will be unsecured.
 
-The server will be built with loopback. 
+
 
 ## Server side
 
+The server will be built with loopback.   
+ 
 ### Begining
 
 We first need to create a folder :
@@ -38,34 +43,26 @@ Then we install mcfly-loopback :
 npm install --save mcfly-io/mcfly-loopback
 ```
 
-In order to add BaseUser to our server go to model-config.json and add :
+Don't forget not to hide user in model-config.json , add :
 
-```JSON
-"BaseUser": {
-        "dataSource": "db",
-        "public": true
-    }
-```
-
-
-
-Don't forget to hide user 
 ```JSON
 "User": {
         "dataSource": "db",
         "public": false
     },
 ```
+
 We need to attach our objects to a datasource :
 ```
 slc loopback:datasource
 ```
 
 You can name it mongo and choose MongoDb.
-This is the way we store data.  
+This is the way we store data. 
+
 (You can see below in config.js that we choosed a local storage. However, you can use mongolab).
 
-If you used mongo, don't forget to install it :
+If you use mongo, don't forget to install it :
 ```
 npm install loopback-connector-mongodb
 ```
@@ -108,7 +105,7 @@ If we want the app to handle google, facebook etc.... Let's add :
 ```javascript
 module.exports = {
  mongoURI: process.env.MONGO_URI || 'localhost',
- userModel: process.env.USER_MODEL || 'BaseUser',
+ userModel: process.env.USER_MODEL || 'User',
  authHeader: process.env.AUTH_HEADER || 'Satellizer',
  tokenSecret: process.env.TOKEN_SECRET || 'A hard to guess string',
  oauth: {
@@ -123,6 +120,15 @@ module.exports = {
 ```
 
 ### Adding a secured data
+
+
+You may find some errors if running the server.  
+To prevent it run :  
+
+```
+npm install mcfly-io/mcfly-loopback
+```
+
 Create **Car** with loopback 
 ```
 slc loopback:model Car
@@ -136,7 +142,6 @@ In order to handle **access** add
        "principalId": "$everyone",
        "permission": "DENY"
    }, {
-       "accessType": "READ",
        "principalType": "ROLE",
        "principalId": "$authenticated",
        "permission": "ALLOW"
@@ -145,6 +150,8 @@ In order to handle **access** add
 
 More details about ACLs here  
 [Here Loopback](http://docs.strongloop.com/display/public/LB/Model+definition+JSON+file;jsessionid=96C4FBE779BE4B9E9E79EE47F3C19411#ModeldefinitionJSONfile-ACLs)
+
+This ACL means that for $everyone the access to Car is denied but for the $authenticated people it is allowed.  
 
 
 Hence, the common/models/Car.json file should look like to this :
@@ -168,7 +175,6 @@ Hence, the common/models/Car.json file should look like to this :
        "principalId": "$everyone",
        "permission": "DENY"
    }, {
-       "accessType": "READ",
        "principalType": "ROLE",
        "principalId": "$authenticated",
        "permission": "ALLOW"
@@ -177,15 +183,6 @@ Hence, the common/models/Car.json file should look like to this :
 }
 ```
 
-
-### Some necessary tools
-
-You may find some errors if running the server.  
-To prevent it run :  
-
-```
-npm install mcfly-io/mcfly-loopback
-```
 
 ### Compatibility with client
 
@@ -201,6 +198,10 @@ app.use(bodyParser.urlencoded({
 }));
 ```
 
+Don't forget to download body-parser
+```
+npm install  body-parser
+```
 
 ## Client side
 
@@ -361,7 +362,7 @@ app.config(['$stateProvider', '$urlRouterProvider',
     ]);
 ```
 
-In the google log in button add :
+In the google log in button add the vm.authenticate method:
 ```html
 <div class="col">
     <button ng-click="vm.authenticate('google')" class="button button-assertive">
@@ -392,6 +393,34 @@ var deps = ['LoopBackAuth', '$auth', '$location', '$window'];
                 });
         };
 ```
+
+Add this to index.js in order to deal with the authentification:
+```
+app.config(['$stateProvider', '$urlRouterProvider',
+        function($stateProvider, $urlRouterProvider) {
+            function authenticated($q, $location, User) {
+                var deferred = $q.defer();
+                var isAuthenticated = User.getCurrentId();
+                if(!isAuthenticated) {
+                    $location.path('/login');
+                } else {
+                    deferred.resolve('/secured');
+                }
+                return deferred.promise;
+            }
+            $urlRouterProvider.otherwise('/');
+            $stateProvider.state('home', {
+                url: '/',
+                template: require('./views/home.html')
+            });
+            $stateProvider.state('login', {
+                url: '/login',
+                template: require('./views/login.html'),
+                controller: fullname + '.loginCtrl',
+                controllerAs: 'vm'
+            });
+
+
 
 In the log out button add :
 ```html
@@ -456,6 +485,7 @@ app.config(['satellizer.config', '$authProvider', function(config, $authProvider
 
 ```
 
+
 #### Using lbServices
 
 Let's add the lbServices File :
@@ -471,10 +501,15 @@ For me it was this
 cp /Users/Noam/mcfly-server-app/mcfly-server/mcfly-server-app/lbServices.js /Users/Noam/mcfly-server-app/mcfly-app/client/scripts
 ```
 
+In the lbServices file we need to add the url of our server such as :
+```
+var urlBase = "http://localhost:3000/api";
+```
+
+
 #### Adding a secured page 
 
 Let's create views/secured.html.
-
 
 Because we want to show our Car object, this will look like to :  
 
@@ -530,49 +565,4 @@ $stateProvider.state('secured', {
                 }
             });
 ```
-
-
-
-
-
-
-
-
-
-
-
-On crée un module avec le generator
-yo mcfly:module common
-yo mcfly:controller common login
-gulp browsersyncl
-
-
-cf wiki
-
-bower install satellizer
-In package.json add satellizer in browser  
-
-Dans login.js passer satellizer en parametre de la fonction
-
-ajouter scope en param de la fonction
-
-lb-ng to build a file
-
-lbServices à ajouter à scrips c'est le fichier qui permet de communiquer avec le server depuis le client
-
-AJouter bodyparser poour loopback c'est un middlewear
-
-
-
-
-
-
-
-
-
-bodyParser
-
-
-
-
 
