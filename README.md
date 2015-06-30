@@ -44,7 +44,7 @@ Don't forget not to hide user in model-config.json , add :
 ```JSON
 "User": {
         "dataSource": "db",
-        "public": false
+        "public": true
     },
 ```
 
@@ -55,9 +55,6 @@ slc loopback:datasource
 
 You can name it mongo and choose MongoDb.
 This is the way we store data. 
-
-(You can see below in config.js that we choosed a local storage. However, you can use mongolab).
-
 If you use mongo, don't forget to install it :
 ```
 npm install loopback-connector-mongodb
