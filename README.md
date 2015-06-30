@@ -189,7 +189,8 @@ npm install mcfly-io/mcfly-loopback
 
 ### Compatibility with client
 
-In server/server.js we need to add at the begining:
+In server/server.js we need to add at the begining:  
+
 ```Javascript
 var bodyParser = require('body-parser');
 
@@ -339,7 +340,78 @@ Now let's create a controller :
 ```
 yo mcfly:controller common
 ```
-Here we call it SecuredCtrl.  
+Here we call it loginCtrl.  
+
+Then in scripts/index.js, add this controller :
+```Javascript
+app.config(['$stateProvider', '$urlRouterProvider',
+        function($stateProvider, $urlRouterProvider) {
+            $urlRouterProvider.otherwise('/');
+            $stateProvider.state('home', {
+                url: '/',
+                template: require('./views/home.html')
+            });
+            $stateProvider.state('login', {
+                url: '/login',
+                template: require('./views/login.html'),
+                controller: fullname + '.loginCtrl',
+                controllerAs: 'vm'
+            });
+        }
+    ]);
+```
+
+In the google log in button add :
+```html
+<div class="col">
+    <button ng-click="vm.authenticate('google')" class="button button-assertive">
+              Google
+    </button>
+</div>
+```
+
+Now let's define it in the controller: loginCtrl.js
+```Javascript
+var deps = ['LoopBackAuth', '$auth', '$location', '$window'];
+
+    function controller(LoopBackAut, $auth, $location, $window) {
+        var vm = this;
+        vm.controllername = fullname;
+
+        vm.authenticate = function(provider) {
+            $auth
+                .authenticate(provider)
+                .then(function(response) {
+                    console.log(response);
+                    console.log('authenticate');
+                    var accessToken = response.data;
+                    LoopBackAuth.setUser(accessToken.id, accessToken.userId, accessToken.user);
+                    LoopBackAuth.rememberMe = true;
+                    LoopBackAuth.save();
+                    return response.resource;
+                });
+        };
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
