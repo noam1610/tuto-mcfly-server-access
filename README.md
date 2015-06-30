@@ -53,9 +53,8 @@ We need to attach our objects to a datasource :
 slc loopback:datasource
 ```
 
-You can name it mongo and choose MongoDb.
-This is the way we store data. 
-If you use mongo, don't forget to install it :
+You can choose in memory or mongo.
+If you use mongo, don't forget to install :
 ```
 npm install loopback-connector-mongodb
 ```
@@ -66,7 +65,7 @@ npm install loopback-connector-mongodb
 To pass to JWT : Go to server/boot/authentication.js
 ```Javascript
 var mcflyLoopback = require('mcfly-loopback');
-var config = require('../config');
+var config = require('../auth-config');
 
 module.exports = function enableAuthentication(server) {
  // enable authentication
@@ -75,15 +74,10 @@ module.exports = function enableAuthentication(server) {
 };
 ```
 
-Let's create a new file server/config.js  
+Let's create a new file server/auth-config.js  
 ```javascript
 module.exports = {
- mongoURI: process.env.MONGO_URI || 'localhost',
- userModel: process.env.USER_MODEL || 'User',
- authHeader: process.env.AUTH_HEADER || 'Satellizer',
- tokenSecret: process.env.TOKEN_SECRET || 'A hard to guess string',
- 
-}
+ tokenSecret: process.env.TOKEN_SECRET || 'A hard to guess string'
 }
 ```
 
@@ -91,9 +85,6 @@ module.exports = {
 If we want the app to handle google, facebook etc.... Let's add :
 ```javascript
 module.exports = {
- mongoURI: process.env.MONGO_URI || 'localhost',
- userModel: process.env.USER_MODEL || 'User',
- authHeader: process.env.AUTH_HEADER || 'Satellizer',
  tokenSecret: process.env.TOKEN_SECRET || 'A hard to guess string',
  oauth: {
    facebook: {
@@ -107,7 +98,6 @@ module.exports = {
 ```
 
 ### Adding a secured data
-
 
 Create **Car** with loopback 
 ```
