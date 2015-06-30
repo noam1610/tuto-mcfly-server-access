@@ -89,13 +89,7 @@ module.exports = {
  userModel: process.env.USER_MODEL || 'BaseUser',
  authHeader: process.env.AUTH_HEADER || 'Satellizer',
  tokenSecret: process.env.TOKEN_SECRET || 'A hard to guess string',
- oauth: {
-   facebook: {
-     secret: process.env.FACEBOOK_SECRET || 'yourcode'
-   },
-   google: {
-     secret: process.env.GOOGLE_SECRET || 'yourcode'
-   }
+ 
 }
 }
 ```
