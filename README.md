@@ -556,3 +556,43 @@ $stateProvider.state('secured', {
             });
 ```
 
+#### Adding some require
+
+In several files don't forget to add require and deps
+
+##### loginCtrl
+```
+require('lbServices');
+``
+
+##### securedCtrl
+```
+require('lbServices');
+```
+&
+
+```
+    var deps = ['Car'];
+    function controller(Car) {
+```
+##### index
+
+```Javascript
+require('angular-ui-router');
+require('angular-ionic');
+require('ng-cordova');
+require('satellizer');
+require('lbServices');
+
+var modulename = 'common';
+
+module.exports = function(namespace) {
+
+    var fullname = namespace + '.' + modulename;
+
+    var angular = require('angular');
+    var app = angular.module(fullname, ['satellizer', 'lbServices', 'ui.router', 'ionic', 'ngCordova']);
+    // inject:folders start
+    require('./controllers')(app);
+    // inject:folders end
+```
