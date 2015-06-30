@@ -1,0 +1,35 @@
+<div style="padding: 4em;">
+    <div class="bar bar-header bar-positive">
+        <h1 class="title">Login Page</h1>
+    </div>
+    <div class="list list-inset" style="padding: 4em;">
+        <label style="padding-horizontal: 10em;" class="item item-input">
+            <input type="text" placeholder="email">
+        </label>
+        <label style="padding-horizontal: 10em;" class="item item-input">
+            <input type="text" placeholder="password">
+        </label>
+    </div>
+    <div class="row">
+        <div class="col"> </div>
+        <div class="col"> </div>
+        <div class="col">
+            <button class="button button-balanced">
+                SIGN IN
+            </button>
+        </div>
+        <div class="col">
+            <button ng-click="vm.authenticate('google')" class="button button-assertive">
+                Google
+            </button>
+        </div>
+        <div class="col">
+            <button ng-click="vm.logout()" class="button button-assertive">
+               Logout
+            </button>
+        </div>
+
+        <div class="col"> </div>
+        <div class="col"> </div>
+    </div>
+</div>
