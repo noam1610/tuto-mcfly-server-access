@@ -116,13 +116,6 @@ module.exports = {
 ### Adding a secured data
 
 
-You may find some errors if running the server.  
-To prevent it run :  
-
-```
-npm install mcfly-io/mcfly-loopback
-```
-
 Create **Car** with loopback 
 ```
 slc loopback:model Car
