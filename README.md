@@ -34,10 +34,6 @@ slc run
 
 ### Creating some objects
 
-Now we will create the BaseUser (secured) object in the server.  
-Download **https://github.com/cosmojs/universal** and copy the common folder into your folder.
-
-
 Then we install mcfly-loopback :
 ```
 npm install --save mcfly-io/mcfly-loopback
@@ -86,7 +82,7 @@ Let's create a new file server/config.js
 ```javascript
 module.exports = {
  mongoURI: process.env.MONGO_URI || 'localhost',
- userModel: process.env.USER_MODEL || 'BaseUser',
+ userModel: process.env.USER_MODEL || 'User',
  authHeader: process.env.AUTH_HEADER || 'Satellizer',
  tokenSecret: process.env.TOKEN_SECRET || 'A hard to guess string',
  
