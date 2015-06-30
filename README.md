@@ -186,6 +186,13 @@ Don't forget to download body-parser
 npm install  body-parser
 ```
 
+
+####To conclude try if it works:
+```
+slc run
+```
+And go to localhost:3000/explorer.
+
 ## Client side
 
 In this tutorial we are going to create a client in which some pages will be secured (you must login to access them)
@@ -358,7 +365,7 @@ Now let's define it in the controller: loginCtrl.js
 ```Javascript
 var deps = ['LoopBackAuth', '$auth', '$location', '$window'];
 
-    function controller(LoopBackAut, $auth, $location, $window) {
+    function controller(LoopBackAuth, $auth, $location, $window) {
         var vm = this;
         vm.controllername = fullname;
 
@@ -378,7 +385,7 @@ var deps = ['LoopBackAuth', '$auth', '$location', '$window'];
 ```
 
 Add this to index.js in order to deal with the authentification:
-```
+```Javascript
 app.config(['$stateProvider', '$urlRouterProvider',
         function($stateProvider, $urlRouterProvider) {
             function authenticated($q, $location, User) {
@@ -402,7 +409,7 @@ app.config(['$stateProvider', '$urlRouterProvider',
                 controller: fullname + '.loginCtrl',
                 controllerAs: 'vm'
             });
-
+```
 
 
 In the log out button add :
