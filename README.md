@@ -41,22 +41,6 @@ Then we install mcfly-loopback :
 npm install --save mcfly-io/mcfly-loopback
 ```
 
-** VERIFY **
-Don't forget not to hide user in model-config.json , add :
-
-```JSON
-"User": {
-        "dataSource": "db",
-        "public": true
-    },
-```
-
-We need to attach our objects to a datasource :
-```
-slc loopback:datasource
-```
-
-You can choose in memory / mongo / etc...
 
 ### Security : From AccessToken to JWT
 
@@ -177,7 +161,17 @@ create oauth-loopback/scripts/common/index.js
 create oauth-loopback/scripts/common/views/home.html
 ```
 
-Now let's create a `login.html` page in `scripts/common/views`
+Now let's create a controller :  
+```
+yo mcfly:controller common loginCtrl
+```
+
+
+Now let's create a `login.html` page in `scripts/common/views`:  
+```bash
+touch client/scripts/common/views/login.html
+```
+
 ```html
 <div style="padding: 4em;">
     <div class="bar bar-header bar-positive">
@@ -210,10 +204,6 @@ Now let's create a `login.html` page in `scripts/common/views`
 </div>
 ```
 
-Now let's create a controller :  
-```
-yo mcfly:controller common loginCtrl
-```
 
 Then we need to add it as a route in `scripts/common/index.js`.  
 ```javascript
